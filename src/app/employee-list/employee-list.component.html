@@ -1,0 +1,41 @@
+<div class="container">
+  <alert-success [hidden]="!showMessageSuccess">
+    O empregado <strong>{{employee?.name}}</strong> foi cadastrado com sucesso!
+  </alert-success>
+
+  <div class="row">
+    <h1>Nossos empregados</h1>
+    <p>{{data | date: 'fullDate' | uppercase}}</p>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td colspan="4">
+            <button class="btn btn-primary" (click)="openNewModal()">Novo empregado</button>
+          </td>
+        </tr>
+        <tr>
+          <th>Nome</th>
+          <th>Salário</th>
+          <th>Bônus</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employeeService.employees; let i=index;" [id]="'tr'+i">
+          <td [innerHTML]="employee.name | uppercase"></td>
+          <td [innerHTML]="employee.salary | customCurrency" [salaryColor]="employee.salary"></td>
+          <td>{{employee.bonus}}</td>
+          <td>
+            <a href="javascript:void(0)" (click)="openEditModal(employee)">Editar</a> |
+            <a href="javascript:void(0)" (click)="openDestroyModal(employee)">Excluir</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<employee-new (onSubmit)="onNewEmployee($event)"></employee-new>
+<employee-edit [employee]="employeeToEdit" (onSubmit)="onEditEmployee($event)"></employee-edit>
+<employee-delete [employee]="employeeToDelete" (onDestroy)="onDestroyEmployee($event)"></employee-delete>

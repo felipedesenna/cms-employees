@@ -1,0 +1,32 @@
+<form (submit)="editEmployee()">
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar empregado {{employee?.name}}</h5>
+          <button type="button" class="close bg-transparent border-0" (click)="hide()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="employee">
+          <div class="form-group">
+            <label>Nome</label>
+            <input class="form-control" name="name" type="text" [(ngModel)]="employee.name">
+          </div>
+          <div class="form-group">
+            <label>Salario</label>
+            <input class="form-control" name="salary" type="text" [(ngModel)]="employee.salary">
+          </div>
+          <div class="form-group" [hidden]="employee.salary >= 1000">
+            <label>Bonus</label>
+            <input class="form-control" name="bonus" type="text" [(ngModel)]="employee.bonus">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="hide()" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
