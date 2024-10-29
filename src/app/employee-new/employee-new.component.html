@@ -1,4 +1,4 @@
-<form (submit)="addEmployee()">
+<form [formGroup]="formEmployee" (ngSubmit)="addEmployee()">
   <div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -11,15 +11,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Nome</label>
-            <input class="form-control" name="name" type="text" [(ngModel)]="employee.name">
+            <input class="form-control" formControlName="name" type="text" [ngClass]="applyErrorCss('name')" />
           </div>
           <div class="form-group">
             <label>Salario</label>
-            <input class="form-control" name="salary" type="text" [(ngModel)]="employee.salary">
+            <input class="form-control" formControlName="salary" type="text" [ngClass]="applyErrorCss('salary')" />
           </div>
           <div class="form-group" [hidden]="employee.salary >= 1000">
             <label>Bonus</label>
-            <input class="form-control" name="bonus" type="text" [(ngModel)]="employee.bonus">
+            <input class="form-control" formControlName="bonus" type="text" [ngClass]="applyErrorCss('bonus')" />
           </div>
         </div>
         <div class="modal-footer">

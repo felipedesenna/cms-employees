@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { Employee } from '../employees';
 
@@ -9,7 +10,9 @@ declare const $: any
   templateUrl: './employee-edit.component.html',
   styleUrls: ['./employee-edit.component.scss']
 })
-export class EmployeeEditComponent {
+export class EmployeeEditComponent implements OnInit {
+  formEditEmployee!: FormGroup;
+
   @Input()
   employee!: Employee;
 
@@ -17,6 +20,16 @@ export class EmployeeEditComponent {
   onSubmit: EventEmitter<Employee> = new EventEmitter<Employee>();
 
   constructor(private element: ElementRef) {}
+
+  ngOnInit() {
+    if (this.employee) {
+      this.formEditEmployee = new FormGroup({
+        name: new FormControl(this.employee.name),
+        salary: new FormControl(this.employee.salary),
+        bonus: new FormControl(this.employee.bonus),
+      });
+    }
+  }
 
   editEmployee() {
     const editEmployee = Object.assign({}, this.employee)
